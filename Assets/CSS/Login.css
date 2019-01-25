@@ -41,7 +41,7 @@ p {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #740d45;
+  background: #83d061;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -60,7 +60,7 @@ p {
   font-size: 12px;
 }
 .form .message a {
-  color: #740d45;
+  color: #83d061;
   text-decoration: none;
 }
 .form .register-form {
@@ -97,10 +97,10 @@ p {
   text-decoration: none;
 }
 .container .info span .fa {
-  color: #EF3B3A;
+  color: #83d061;
 }
 body {
-  background: #740d45; 
+  background: #83d061; 
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
