@@ -11,9 +11,12 @@ messagingSenderId: "226946194379"
 firebase.initializeApp(config);
 
 var database = firebase.database();
+
 var name = "";
 var startLocation = "";
 var budget = 0;
+var startDate = "";
+var departureDate = "";
 
 // Submitting the input for saves the values to access them in the rest of the app
 $(document).on("click", "#get-started", function(event){
@@ -22,22 +25,23 @@ $(document).on("click", "#get-started", function(event){
     name = $("#user-name").val().trim();
     startLocation = $("#starting-point").val().trim();
     budget = $("#budget").val().trim();
-
+    startDate = moment($("#arrival").val().trim(), "MM/DD/YYYY").format("X");
+    departureDate = moment($("#departure").val().trim(), "MM/DD/YYYY").format("X");
 
 // Logs the variable to make sure they are being captured
     console.log(name)
     console.log(startLocation)
     console.log(budget)
+    console.log(startDate)
+    console.log(departureDate)
  
 
     database.ref().on("value", function(snapshot) {
         name = snapshot.val().name;
         startLocation = snapshot.val().startLocation;
         budget = snapshot.val().budget;
-
-        console.log(name);
-        console.log(startLocation);
-        console.log(budget);
+        startDate = snapshot.val().startDate;
+        departureDate = snapshot.val().departureDate;
 
     });
     
@@ -45,6 +49,8 @@ $(document).on("click", "#get-started", function(event){
         name: name,
         startLocation: startLocation,
         budget: budget,
+        startDate: startDate,
+        departureDate: departureDate
 
     });
     
