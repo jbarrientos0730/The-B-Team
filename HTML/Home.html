@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ&libraries=places&callback=initMap" async defer></script>
     <script src = "../Assets/JAVA/Map.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="../Assets/CSS/Home.css">
     <title>Google Map Pin Function</title>
 </head>
@@ -16,25 +17,34 @@
     <header>
         <h1>App Title Goes Here</h1>
     </header>
-    <div>
-        <form id="user-input">
-            <label for="user-name">Name</label><br>
-            <input type="text" id="user-name"><br>
+    <div class = "container">
+        <div class = "row">
+            <form class = col-4 id="user-input">
+                <label for="user-name">Name</label><br>
+                <input type="text" id="user-name"><br>
 
-            <label for="starting-point">Starting Location</label><br>
-            <input type="text" id="starting-point"><br>
+                <label for="starting-point">Starting Location</label><br>
+                <input type="text" id="starting-point"><br>
 
-            <label for="budget">Budget</label><br>
-            <input type="text" id="budget"><br>
+                <label for="budget">Budget</label><br>
+                <input type="text" id="budget"><br>
 
-            <label for="visit-arrival">Arrival Date</label><br>
-            <input type="date" id="arrival"><br>
+                <label for="visit-arrival">Arrival Date</label><br>
+                <input type="date" id="arrival"><br>
 
-            <label for="visit-departure">Departure Date</label><br>
-            <input type="date" id="departure"><br><br>
+                <label for="visit-departure">Departure Date</label><br>
+                <input type="date" id="departure"><br><br>
 
-            <input type="submit" id="get-started" value="Start Planning!">
-        </form>
+                <input type="submit" id="get-started" value="Start Planning!">
+            </form>
+            <div class = "col-8" id = "places-choice">
+            </div>
+    </div>
+    </div>
+    <div class = "container">
+        <div id = "places-choices">
+        </div>
+       
     </div>
     <div class="container">
         <div id=map>
