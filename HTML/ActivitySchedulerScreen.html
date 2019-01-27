@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <link rel="stylesheet" stylesheet in assets folder"> -->
+  <link rel="stylesheet" type="text/css" href="../Assets/CSS/Activity_Scheduler.css">
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Title -->
+  <h1>My Schedule</h1>
+
+  <!-- Input Form -->
+  <form>
+    <span id="todo-item"> <input id="to-do" type="text"><input id="add-to-do" value="Add Activity" type="submit"></span>
+  </form>
+
+  <!-- To-Do List -->
+  <div id="to-dos"></div>
+
+
+  <!-- Script -->
+
+  <script type="text/javascript">
+
+    // Create an initial toDoCount variable
+    var toDoCount = 0;
+
+    //  On Click event associated with the add-to-do function
+    $("#add-to-do").on("click", function (event) {
+      event.preventDefault();
+
+      // Get the to-do "value" from the textbox and store it a variable
+      var toDoTask = $("#to-do").val().trim();
+
+      // Create a new variable that will hold a "<p>" tag.
+      // Set the to-do "value" as text to this <p> element.
+      var toDoItem = $("<p>");
+
+      toDoItem.attr("id", "item-" + toDoCount);
+      toDoItem.text(toDoTask);
+
+      // Create a button with unique identifiers based on what number it is in the list
+      var toDoClose = $("<button>");
+
+      toDoClose.attr("data-to-do", toDoCount);
+      toDoClose.addClass("checkbox");
+      toDoClose.text("✓");
+
+      // Append the button to the to do item
+      toDoItem = toDoItem.prepend(toDoClose);
+
+      // Add the button and to do item to the to-dos div
+      $("#to-dos").append(toDoItem);
+
+      // Clear the textbox when done
+      $("#to-do").val("");
+
+      // Add to the toDoCount
+      toDoCount++;
+    });
+
+    // When a user clicks a check box then delete the specific content
+    $(document.body).on("click", ".checkbox", function () {
+
+      // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
+      var toDoNumber = $(this).attr("data-to-do");
+
+      // Select and Remove the specific <p> element that previously held the to do item number.
+      $("#item-" + toDoNumber).remove();
+    });
+
+  </script>
+
+</body>
+
+</html>
