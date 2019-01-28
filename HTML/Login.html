@@ -5,35 +5,51 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
   <!-- <link rel="stylesheet" stylesheet in assets folder"> -->
   <link rel="stylesheet" type="text/css" href="../Assets/CSS/Login.css">
 
 </head>
 
-<header>
-  <h1>The Overplanner Planning Planner for Overplanners</h1>
-</header>
+<body>
 
-<div class="login-page">
-  <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name" />
-      <input type="password" placeholder="password" />
-      <input type="text" placeholder="email address" />
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form class="login-form">
-      <input type="text" placeholder="username" />
-      <input type="password" placeholder="password" />
-      <button>login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-    <div class="ez_button">
-      <button><a href="Home.html">Continue as guest</a></button>
+<!-- Bootstrap navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="Home.html">Overplanner</a>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="Home.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ActivitySchedulerScreen.html">Add An Activity</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="form">
+      <form class="form-signin">
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><a href="Home.html">Continue as guest</a></button>
+        <p class="message">Not registered? <a href="#">Create an account</a></p>
+      </form>
     </div>
   </div>
-</div>
+
+<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
 
 </html>
