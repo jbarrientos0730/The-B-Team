@@ -19,12 +19,11 @@ var markers = [];
 var markerSelection = [];
 var activitySelection = [];
 var results;
+var resultsDistance;
 var currentActivity = 0;
 var directionsService;
 var directionsDisplay;
 var distBetween;
-// var directionsService = new google.maps.DirectionsService();
-// var directionsDisplay = new google.maps.DirectionsRenderer();
 
 $(document).on("click", "#get-started", function(event){
     event.preventDefault();
@@ -51,8 +50,9 @@ $(document).on("click", "#get-started", function(event){
         }).then(function(response){
             results = response.results;
             console.log(results);
+          
             addMarker(results);
-            addButtonChoices(results);
+            getDistanceBetween(results);
         })
     })
 });
@@ -85,8 +85,6 @@ function initMap(){
         icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
         zIndex: 1
         })
-        // markers[parseInt(markers[i].markerNumber)].setMap(null);
-        // console.log(markers[parseInt(markers[i].markerNumber)]);
     }
     
     console.log(markers);
@@ -123,27 +121,19 @@ function addItineraryChoice(num){
         method: "GET",
     }).then(function(response){
         results = response.results;
-        console.log(results);
         addMarker(results);
-        addButtonChoices(results);
-        // getDistanceBetween(startLatLng, response[0].geometry.location)
-        distBetween = google.maps.geometry.spherical.computeDistanceBetween(startLatLng, response[0].geometry.location);
-        console.log(distBetween);
+        getDistanceBetween(results);
 
 
     })
     currentActivity++;
     console.log(activitySelection);
-    console.log(distBetween);
 
      
  }
- console.log(distBetween);
 
- function addButtonChoices(response){
-    //  distBetween = getDistanceBetween(startLatLng, response[0].geometry.location);
-    //  distBetween = google.maps.geometry.spherical.computeDistanceBetween(startLatLng, response[0].geometry.location);
-    distBetween
+ function addButtonChoices(response, distResponse){
+   
      for (i = 0; i < response.length; i++)
      {
        
@@ -152,18 +142,35 @@ function addItineraryChoice(num){
         btn.append("<p> Name: " + response[i].name + "</p>");
         btn.append("<p> Rating: " + response[i].rating + "</p>");
         btn.append("<p>  Price level: " + response[i].price_level + "</p>");
-        // btn.append("<p>  Distance From Start: " + distBetween + "</p>");
-        // btn.append("<p> Hours: " + response[i].opening_hours + "</p>");
+        btn.append("<p>  Distance from last point: " + distResponse.rows[0].elements[i].distance.text + "</p>");
         $("#places-choices").append(btn);
      }
  }
  function deleteMarker(int){
      markers[int].setMap(null);
  }
-//  function getDistanceBetween(loc1, loc2){   
-//     distBetween = google.maps.geometry.spherical.computeDistanceBetween(loc1,loc2);
-//     console.log(distBetween);
-//  }
+ function getDistanceBetween(response){
+    var destinations = [];
+    var origin = [startLatLng];
+    for (i = 0; i < response.length; i++)
+    {
+        destinations.push(response[i].geometry.location);
+    }   
+    var distancesBetween = new google.maps.DistanceMatrixService();
+    distancesBetween.getDistanceMatrix({
+        origins: origin,
+        destinations: destinations,
+        travelMode: 'WALKING',
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+    },
+    function(response){
+        resultsDistance = response;
+        console.log(response);
+        addButtonChoices(results, resultsDistance);
+
+    }) 
+    
+ }
 
 function getRoutes(){
     directionsService = new google.maps.DirectionsService();
@@ -187,7 +194,8 @@ function getRoutes(){
         origin: startRoute, // take the place id of the starting location
         destination: endRoute, //take the place id of the last location in the activities array  
         waypoints : wayPoints, 
-        travelMode : 'WALKING'
+        travelMode : 'WALKING',
+        
     }
     directionsService.route(routeOptions
         , function(response){
