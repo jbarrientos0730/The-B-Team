@@ -3,19 +3,21 @@ var results;
 var startLatLng = { 
 }
 var startUrl;
+var startlat;
+var startlng;
 var name = "";
 var startLocation = "";
 var budget = "";
 var searchQuery = "bestplaces";
 var milesWillingToTravel = 10;
-var radius = 0;
+var radius = 3000;
 var stayDuration = 0;
 var markers = [];
 var markerSelection = [];
 var activitySelection = [];
 var results;
 var resultsDistance;
-var currentActivity = 0;
+var currentActivity = 1;
 var directionsService;
 var directionsDisplay;
 var distBetween;
@@ -29,7 +31,7 @@ $(document).on("click", "#get-started", function(event){
     budget = $("#budget").val().trim();
     searchQuery =  $("#activity").val().trim();
     milesWillingToTravel = parseInt( $("#trip-distance").val().trim());
-    radius = Math.ceil(milesWillingToTravel * 1609.344);
+    // radius = Math.ceil(milesWillingToTravel * 1609.344);
     $("#miles-left").text("Miles Left:" + milesWillingToTravel);
     startUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + startLocation + "&inputtype=textquery&fields=geometry&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ"
     $.ajax({
@@ -38,6 +40,8 @@ $(document).on("click", "#get-started", function(event){
     }).then(function(response){
         console.log(startUrl);
         console.log(response);
+        activitySelection.push(response.candidates[0]);
+        console.log("here",activitySelection);
         startlat = response.candidates[0].geometry.location.lat;
         startlng = response.candidates[0].geometry.location.lng;
         startLatLng = response.candidates[0].geometry.location;
@@ -55,11 +59,14 @@ $(document).on("click", "#get-started", function(event){
 });
 $(document).on('click', ".button-marker", function(event){
     event.preventDefault();
-    markerNum = $(this).val();
-    updateDistance(markerNum);
-    radius = Math.ceil(milesWillingToTravel * 1609.344);
-    console.log(radius);
+    markerNum = parseInt($(this).val());
     addItineraryChoice(markerNum);
+    markerNum += 1;
+    console.log(markerNum);
+    updateDistance(markerNum);
+    // radius = Math.ceil(milesWillingToTravel * 1609.344);
+    console.log(radius);
+   
 
 });
 $(document).on("click","#route-button",  function(event){
@@ -112,23 +119,27 @@ function addItineraryChoice(num){
             markers[i].setMap(null);
         };
 
-        console.log(activitySelection);
+        console.log(activitySelection[currentActivity]);
         startlat = activitySelection[currentActivity].geometry.location.lat;
         console.log(startlat);
         startlng = activitySelection[currentActivity].geometry.location.lng;
         console.log(startlng);
+        $("#miles-left").text(milesWillingToTravel);
+        if (milesWillingToTravel > 0)
+        {
         $.ajax({
             url:"https://cors-anywhere.herokuapp.com/" + "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword="+ searchQuery + "&location=" + startlat + "," + startlng + "&radius=" + radius + "&opennow&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ",
             method: "GET",
         }).then(function(response){
             results = response.results;
-            $("#miles-left").text(milesWillingToTravel);
+           
             addMarker(results);
             getDistanceBetween(results);
+            currentActivity++;
+
         })
-        currentActivity++;
-        console.log(activitySelection);
         console.log(currentActivity);
+    }
          
  }
 
@@ -197,6 +208,8 @@ function getRoutes(){
         , function(response){
         directionsDisplay.setDirections(response);
         directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById("directions-panel"));
+        $("#directions-button").show();
         console.log(response);
     });
 }

@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ&libraries=places&callback=initMap" async defer></script>
     <script src = "../Assets/JAVA/Map.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -54,7 +55,15 @@
                 <input type="submit" id="get-started" value="Start Planning!">
             </form>
             <div class = "col-8" id = "places-choice">
-                    <button class = "btn btn-primary" id = "route-button">Route!</button>
+                        <button class = "btn btn-primary" id = "route-button">Route!</button>
+            <div id ="directions-button">  
+                <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#directionsCollapse" aria-expanded="false" aria-controls="directionsCollapse"> See Directions </button>
+                </p>
+                <div  class="collapse" id="directionsCollapse">
+                    <div id = "directions-panel" class="card card-body">
+                    </div>
+                </div>
+            </div>
                     <h1 id ="miles-left"></h1>
                     <h1 id ="expected-cost"></h1>
                     <h1 id ="travel-time"></h1>
