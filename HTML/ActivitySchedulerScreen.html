@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
 
+  <script src="../Assets/JAVA/fullcalendar.js"></script>
+  <link rel="stylesheet" href="../Assets/CSS/fullcalendar.css">
   <!-- <link rel="stylesheet" stylesheet in assets folder"> -->
   <link rel="stylesheet" type="text/css" href="../Assets/CSS/Activity_Scheduler.css">
 
@@ -45,8 +47,13 @@
       <form>
         <span id="todo-item"> <input id="to-do" type="text" placeholder=" brunch, paint class, etc."><input id="add-to-do"
             value="Add Activity" type="submit"></span>
+
       </form>
       <div id="to-dos"></div>
+
+      <div class="container-calendar">
+        <div id=calendar></div>
+      </div>
 
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -54,6 +61,8 @@
         crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+
       <!-- Script -->
 
       <script type="text/javascript">
@@ -101,7 +110,109 @@
           $("#item-" + toDoNumber).remove();
         });
 
+        // --------------------------------
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+          var calendarEl = document.getElementById('calendar');
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'listDay,listWeek'
+            },
+
+            // customize the button names,
+            // otherwise they'd all just say "list"
+            views: {
+              listDay: { buttonText: 'list day' },
+              listWeek: { buttonText: 'list week' }
+            },
+
+            defaultView: 'listDay',
+            defaultDate: '2019-01-12', //THIS IS WHERE WE CAN INSERT THE VARIABL OF OUR START DURATION
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+              {
+                groupId: 999,
+                title: 'Lunch',
+                start: '2019-02-02T12:00:00',
+                end: '2019-01-12T13:30:00'
+              },
+              {
+                title: 'Happy-Hour',
+                start: '2019-02-02T14:00:00',
+                end: '2019-01-12T15:00:00'
+              },
+              {
+                title: 'Field Museum',
+                start: '2019-02-02T15:30:00',
+                end: '2019-01-12T18:00:00'
+              },
+              {
+                title: 'Walk Back to Hotel',
+                start: '2019-02-02T18:15:00',
+                end: '2019-01-12T18:30:00'
+              },
+              {
+                title: 'Dinner',
+                start: '2019-02-02T19:00:00',
+                end: '2019-01-12T21:00:00'
+              }
+            ]
+
+          });
+
+          $(function () {
+
+            $('#calendar').fullCalendar({
+              defaultView: 'month',
+
+              header: {
+                center: 'addEventButton'
+              },
+
+              customButtons: {
+                addEventButton: {
+                  text: 'add event...',
+                  click: function () {
+                    var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                    var date = moment(dateStr);
+
+                    if (date.isValid()) {
+                      $('#calendar').fullCalendar('renderEvent', {
+                        title: 'dynamic event',
+                        start: date,
+                        allDay: true
+                      });
+                      alert('Great. Now, update your database...');
+                    } else {
+                      alert('Invalid date.');
+                    }
+                  }
+                }
+              }
+            });
+
+          });
+          calendar.render();
+        });
+
       </script>
+
+      <style>
+        #calendar {
+          max-width: 900px;
+          width: 450px;
+          margin: 0 auto;
+          background-color: lightgray;
+        }
+      </style>
+
+
     </div>
 
 </body>
