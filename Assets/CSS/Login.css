@@ -1,14 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
+  width: 400px;
   padding: 8% 0 0;
   margin: auto;
 }
 
 h1 {
   color: #FFFFFF;
-  font-size: 26px;
+  font-size: 3em;
 }
 
 p { 
@@ -102,4 +102,10 @@ p {
 body {
   background: #83d061; 
   font-family: "Roboto", sans-serif;     
+}
+
+header{
+  width: 600px;
+  text-align: center;
+  margin: auto;
 }
