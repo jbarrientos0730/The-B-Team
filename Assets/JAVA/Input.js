@@ -18,6 +18,7 @@ var budget = 0;
 var stayDuration = "";
 var startDate = "";
 var departureDate = "";
+var travelDistance = 0;
 
 // Submitting the input for saves the values to access them in the rest of the app
 $(document).on("click", "#get-started", function(event){
@@ -25,6 +26,7 @@ $(document).on("click", "#get-started", function(event){
     event.preventDefault();
     name = $("#user-name").val().trim();
     startLocation = $("#starting-point").val().trim();
+    travelDistance = $("#travel-distance").val().trim();
     budget = $("#budget").val().trim();
     stayDuration = $("stayDuration").val().trim();
     startDate = moment($("#arrival").val().trim(), "MM/DD/YYYY").format("X");
@@ -33,6 +35,7 @@ $(document).on("click", "#get-started", function(event){
 // Logs the variable to make sure they are being captured
     console.log(name)
     console.log(startLocation)
+    console.log(travelDistance)
     console.log(budget)
     console.log(stayDuration)
     console.log(startDate)
@@ -42,6 +45,7 @@ $(document).on("click", "#get-started", function(event){
     database.ref().on("value", function(snapshot) {
         name = snapshot.val().name;
         startLocation = snapshot.val().startLocation;
+        travelDistance = snapshot.val().travelDistance;
         budget = snapshot.val().budget;
         stayDuration = snapshot.val().stayDuration;
         startDate = snapshot.val().startDate;
@@ -52,12 +56,15 @@ $(document).on("click", "#get-started", function(event){
     database.ref().push({
         name: name,
         startLocation: startLocation,
+        travelDistance:travelDistance,
         budget: budget,
         stayDuration: stayDuration,
         startDate: startDate,
         departureDate: departureDate
 
     });
+
+
     
 });
 

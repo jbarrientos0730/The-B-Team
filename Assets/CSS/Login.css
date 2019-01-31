@@ -1,10 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+
 .login-page {
   width: 400px;
   padding: 8% 0 0;
   margin: auto;
 }
+
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
+
 
 h1 {
   color: #FFFFFF;
@@ -16,16 +22,53 @@ p {
   font-size: 19px;
 }
 
-.form {
+.form-signin {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: 0 auto;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.navbar{
+  color: green;
+}
+
+.form-signin .form-signin-heading,
+.form-signin {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+
 .form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
@@ -101,11 +144,21 @@ p {
 }
 body {
   background: #83d061; 
-  font-family: "Roboto", sans-serif;     
-}
+  font-family: "Roboto", sans-serif;
+  padding-top: 40px;
+  padding-bottom: 40px;     
+} 
 
+
+h3, h2 {
+  padding-bottom: 20px;
+  margin-bottom: 15px;
+  line-height: 22px;
+  border-bottom: 2px solid #eeeeee;
+}
 header{
   width: 600px;
   text-align: center;
   margin: auto;
 }
+
