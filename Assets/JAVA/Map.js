@@ -88,11 +88,11 @@ $(document).on('click', ".button-marker", function(event){
 });
 $(document).on("click","#route-button",  function(event){
     event.preventDefault();
-    getRoutes();
+    getRoutes(activitySelection);
 })
 $(document).on("click", "#save-button", function(event){
     event.preventDefault();
-    name = $("#user-name").val().trim();
+    name = $("#trip-name").val().trim();
     date = $("#date").val().trim();
     var savedActivities = [];
     savedTrip = {
@@ -105,23 +105,36 @@ $(document).on("click", "#save-button", function(event){
         }
     };
     savedActivities.push(savedTrip);
-    database.ref("/saved-trips/").push(savedTrip);
+    database.ref("saved-trips").push(savedTrip);
+    addSavedTrips();
 })
-database.ref("/saved-trips").on("child_added", function(snapshot){
+$(document).on("click", ".saved-trip", function(event){
+    event.preventDefault();
+    tripIndex = $(this).val();
+    var saveActivity = [];
+    saveActivity.push((savedTrips[tripIndex].activities.activitySelection));
+    getRoutes(savedTrips[tripIndex].activities.activitySelection);
+})
+database.ref("saved-trips").on("child_added", function(snapshot){
     var tripButton = snapshot.val();
     savedTrips.push(tripButton);
-    console.log(savedTrips);
+    addSavedTrips();
+    console.log(tripButton)
+    console.log(snapshot.key);
+
 })
 function addSavedTrips(){
+    $("#save-area").empty();
     if (savedTrips.length > 0){
         for (i = 0; i < savedTrips.length; i++)
     {
         console.log("Im in the firebase loop");
         var btn = $("<button>");
-        btn.attr("id", i);
-        btn.attr("name", tripButton[0].name);
-        btn.append("<p> Trip Name: "+ tripButton[0].name);
-        btn.append("<p> Trip Date: "+ tripButton[0].date);
+        btn.attr("value", i);
+        btn.attr("name", savedTrips[i].savedTrip.name);
+        btn.addClass("saved-trip btn btn-sm btn-primary btn-block");
+        btn.append("<p> Trip Name: "+ savedTrips[i].savedTrip.name + "</p>");
+        btn.append("<p> Trip Date: "+ savedTrips[i].savedTrip.date+ "</p>");
         $("#save-area").append(btn);
     }
     }
@@ -201,7 +214,7 @@ function addItineraryChoice(num){
      {
        
          //diplay name, hours, rating, price, distance from
-        var btn = $("<button class= 'button-marker m-2 btn-primary' id = marker-number-" + i  + " value =" + i + ">");
+        var btn = $("<button class= 'col-2 button-marker m-2 btn-primary' id = marker-number-" + i  + " value =" + i + ">");
         btn.append("<p> Name: " + response[i].name + "</p>");
         btn.append("<p> Rating: " + response[i].rating + "</p>");
         btn.append("<p>  Price level: " + response[i].price_level + "</p>");
@@ -233,21 +246,20 @@ function addItineraryChoice(num){
         addButtonChoices(results, resultsDistance);
     })     
  }
-function getRoutes(){
-    database.ref("/activities").set(activitySelection);
+function getRoutes(Arr){
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     var startRoute;
-    startRoute = activitySelection[0].geometry.location;
+    startRoute = Arr[0].geometry.location;
     var endRoute; 
-    endRoute = activitySelection[activitySelection.length - 1].geometry.location;
+    endRoute = Arr[Arr.length - 1].geometry.location;
     var wayPoints = [];
-    if (activitySelection.length > 2)
+    if (Arr.length > 2)
     {
-        for(i = 1; i < activitySelection.length -1; i++)
+        for(i = 1; i < Arr.length -1; i++)
         {   
             var routeLatLng = {}
-            routeLatLng.location = activitySelection[i].geometry.location;
+            routeLatLng.location = Arr[i].geometry.location;
             wayPoints.push(routeLatLng);
         }
     }
