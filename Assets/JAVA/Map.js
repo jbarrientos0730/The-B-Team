@@ -6,6 +6,7 @@ var startUrl;
 var startlat;
 var startlng;
 var name = "";
+var date = "";
 var startLocation = "";
 var budget = "";
 var searchQuery = "bestplaces";
@@ -23,6 +24,22 @@ var directionsDisplay;
 var distBetween;
 var expectedCost = 0;
 var totalTravelTime = 0;
+var savedTrips = [];
+
+var database;
+
+ // Initialize Firebase
+ var config = {
+    apiKey: "AIzaSyC9y7Y9O5YV6DdKSCYfUaK8pvYW3g5YPic",
+    authDomain: "the-overplanner-planner.firebaseapp.com",
+    databaseURL: "https://the-overplanner-planner.firebaseio.com",
+    projectId: "the-overplanner-planner",
+    storageBucket: "the-overplanner-planner.appspot.com",
+    messagingSenderId: "226946194379"
+  };
+  firebase.initializeApp(config);
+
+  database = firebase.database();
 
 $(document).on("click", "#get-started", function(event){
     event.preventDefault();
@@ -61,9 +78,9 @@ $(document).on('click', ".button-marker", function(event){
     event.preventDefault();
     markerNum = parseInt($(this).val());
     addItineraryChoice(markerNum);
+    updateDistance(markerNum);
     markerNum += 1;
     console.log(markerNum);
-    updateDistance(markerNum);
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
     console.log(radius);
    
@@ -73,7 +90,42 @@ $(document).on("click","#route-button",  function(event){
     event.preventDefault();
     getRoutes();
 })
-
+$(document).on("click", "#save-button", function(event){
+    event.preventDefault();
+    name = $("#user-name").val().trim();
+    date = $("#date").val().trim();
+    var savedActivities = [];
+    savedTrip = {
+        savedTrip : {
+        name : name,
+        date : date
+        },
+        activities : {
+            activitySelection
+        }
+    };
+    savedActivities.push(savedTrip);
+    database.ref("/saved-trips/").push(savedTrip);
+})
+database.ref("/saved-trips").on("child_added", function(snapshot){
+    var tripButton = snapshot.val();
+    savedTrips.push(tripButton);
+    console.log(savedTrips);
+})
+function addSavedTrips(){
+    if (savedTrips.length > 0){
+        for (i = 0; i < savedTrips.length; i++)
+    {
+        console.log("Im in the firebase loop");
+        var btn = $("<button>");
+        btn.attr("id", i);
+        btn.attr("name", tripButton[0].name);
+        btn.append("<p> Trip Name: "+ tripButton[0].name);
+        btn.append("<p> Trip Date: "+ tripButton[0].date);
+        $("#save-area").append(btn);
+    }
+    }
+}
 function initMap(){   
      map = new google.maps.Map(document.getElementById("map"), {
          center: {lat: 41.844334, lng: -87.645301}, //center the map based on the start location of the form
@@ -181,6 +233,7 @@ function addItineraryChoice(num){
     })     
  }
 function getRoutes(){
+    database.ref("/activities").set(activitySelection);
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     var startRoute;
@@ -226,3 +279,4 @@ function updateDistance (num){
    }
     console.log(milesWillingToTravel);
 };
+addSavedTrips();
