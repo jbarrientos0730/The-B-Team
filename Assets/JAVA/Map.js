@@ -49,7 +49,7 @@ $(document).on("click", "#get-started", function(event){
     searchQuery =  $("#activity").val().trim();
     milesWillingToTravel = parseInt( $("#trip-distance").val().trim());
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
-    $("#miles-left").text("Miles Left:" + milesWillingToTravel);
+    $("#miles-left").text("Miles Left: " + milesWillingToTravel);
     startUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + startLocation + "&inputtype=textquery&fields=geometry&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ"
     $.ajax({
         url :"https://cors-anywhere.herokuapp.com/" + startUrl,
@@ -161,10 +161,11 @@ function addItineraryChoice(num){
         btn.append("<p> Name: " + results[num].name + "</p>");
         btn.append("<p> Rating: " + results[num].rating + "</p>");
         btn.append("<p>  Price level: " + results[num].price_level + "</p>");
-        totalTravelTime +=  resultsDistance.rows[0].elements[num].duration.value/60;
+        totalTravelTime +=  Math.floor(resultsDistance.rows[0].elements[num].duration.value/60);
         $("#travel-time").text("Total Walking Time: " + totalTravelTime + " minutes");
         expectedCost += (results[num].price_level * 20);
         $("#expected-cost").text("Expected Cost: $ " + expectedCost); 
+        console.log(expectedCost)
         $("#places-choice").append(btn);
         for (i = 0; i < markers.length; i++)
         {
@@ -266,17 +267,26 @@ function getRoutes(){
         console.log(response);
     });
 }
-function updateDistance (num){
-   var miles =  resultsDistance.rows[0].elements[num].distance.text;
+function updateDistance (){
+
+    function round(value, precision) {
+        var multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+    }
+
+   var miles =  resultsDistance.rows["0"].elements[markerNum].distance.text;
    miles = miles.substring(0, 3);
    parseInt(miles); 
-   console.log(resultsDistance.rows[0].elements[num].distance.text);
+   console.log(resultsDistance.rows["0"].elements[markerNum].distance.text);
+   console.log(milesWillingToTravel)
    console.log(miles);
-   milesWillingToTravel -= miles;
-   if(milesWillingToTravel < 0)
+   var newMiles = round(milesWillingToTravel-miles, 2);
+   milesWillingToTravel = newMiles;
+   if(newMiles < 0)
    {
        milesWillingToTravel = 0;
    }
     console.log(milesWillingToTravel);
+   $("#miles-left").text("Miles Left: " + milesWillingToTravel);
 };
 addSavedTrips();
