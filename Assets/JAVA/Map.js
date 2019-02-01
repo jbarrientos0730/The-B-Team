@@ -109,10 +109,11 @@ function addItineraryChoice(num){
         btn.append("<p> Name: " + results[num].name + "</p>");
         btn.append("<p> Rating: " + results[num].rating + "</p>");
         btn.append("<p>  Price level: " + results[num].price_level + "</p>");
-        totalTravelTime +=  resultsDistance.rows[0].elements[num].duration.value/60;
+        totalTravelTime +=  Math.floor(resultsDistance.rows[0].elements[num].duration.value/60);
         $("#travel-time").text("Total Walking Time: " + totalTravelTime + " minutes");
         expectedCost += (results[num].price_level * 20);
         $("#expected-cost").text("Expected Cost: $ " + expectedCost); 
+        console.log(expectedCost)
         $("#places-choice").append(btn);
         for (i = 0; i < markers.length; i++)
         {
@@ -213,16 +214,19 @@ function getRoutes(){
         console.log(response);
     });
 }
-function updateDistance (num){
-   var miles =  resultsDistance.rows[0].elements[num].distance.text;
+function updateDistance (){
+   var miles =  resultsDistance.rows["0"].elements[markerNum].distance.text;
    miles = miles.substring(0, 3);
    parseInt(miles); 
-   console.log(resultsDistance.rows[0].elements[num].distance.text);
+   console.log(resultsDistance.rows["0"].elements[markerNum].distance.text);
+   console.log(milesWillingToTravel)
    console.log(miles);
-   milesWillingToTravel -= miles;
-   if(milesWillingToTravel < 0)
+   var newMiles = (milesWillingToTravel-miles);
+   milesWillingToTravel = newMiles;
+   if(newMiles < 0)
    {
        milesWillingToTravel = 0;
    }
     console.log(milesWillingToTravel);
+   $("#miles-left").text(milesWillingToTravel);
 };
