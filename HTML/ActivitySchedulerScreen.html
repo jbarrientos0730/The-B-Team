@@ -3,78 +3,217 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+
+  <script src="../Assets/JAVA/fullcalendar.js"></script>
+  <link rel="stylesheet" href="../Assets/CSS/fullcalendar.css">
   <!-- <link rel="stylesheet" stylesheet in assets folder"> -->
   <link rel="stylesheet" type="text/css" href="../Assets/CSS/Activity_Scheduler.css">
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+  <!-- Bootstrap navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="Home.html">
+      <img src="../Assets/Images/logo.PNG" style="display: inline-block;">
+      <span style="display: inline-block;">Overplanner</span>
+    </a>
 
-  <!-- Title -->
-  <h1>My Schedule</h1>
+    </a>
 
-  <!-- Input Form -->
-  <form>
-    <span id="todo-item"> <input id="to-do" type="text"><input id="add-to-do" value="Add Activity" type="submit"></span>
-  </form>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="Home.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ActivitySchedulerScreen.html">Add An Activity</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-  <!-- To-Do List -->
-  <div id="to-dos"></div>
+  <div class="container">
+    <h1>My Schedule</h1>
+    <div class="form">
+      <form>
+        <span id="todo-item"> <input id="to-do" type="text" placeholder=" brunch, paint class, etc."><input id="add-to-do"
+            value="Add Activity" type="submit"></span>
+
+      </form>
+      <div id="to-dos"></div>
+
+      <div class="container-calendar">
+        <div id=calendar></div>
+      </div>
 
 
-  <!-- Script -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-  <script type="text/javascript">
 
-    // Create an initial toDoCount variable
-    var toDoCount = 0;
+      <!-- Script -->
 
-    //  On Click event associated with the add-to-do function
-    $("#add-to-do").on("click", function (event) {
-      event.preventDefault();
+      <script type="text/javascript">
+        // Create an initial toDoCount variable
+        var toDoCount = 0;
 
-      // Get the to-do "value" from the textbox and store it a variable
-      var toDoTask = $("#to-do").val().trim();
+        //  On Click event associated with the add-to-do function
+        $("#add-to-do").on("click", function (event) {
+          event.preventDefault();
 
-      // Create a new variable that will hold a "<p>" tag.
-      // Set the to-do "value" as text to this <p> element.
-      var toDoItem = $("<p>");
+          // Get the to-do "value" from the textbox and store it a variable
+          var toDoTask = $("#to-do").val().trim();
 
-      toDoItem.attr("id", "item-" + toDoCount);
-      toDoItem.text(toDoTask);
+          // Create a new variable that will hold a "<p>" tag.
+          // Set the to-do "value" as text to this <p> element.
+          var toDoItem = $("<p>");
 
-      // Create a button with unique identifiers based on what number it is in the list
-      var toDoClose = $("<button>");
+          toDoItem.attr("id", "item-" + toDoCount);
+          toDoItem.text(toDoTask);
 
-      toDoClose.attr("data-to-do", toDoCount);
-      toDoClose.addClass("checkbox");
-      toDoClose.text("✓");
+          // Create a button with unique identifiers based on what number it is in the list
+          var toDoClose = $("<button>");
 
-      // Append the button to the to do item
-      toDoItem = toDoItem.prepend(toDoClose);
+          toDoClose.attr("data-to-do", toDoCount);
+          toDoClose.addClass("checkbox");
+          toDoClose.text("✓");
 
-      // Add the button and to do item to the to-dos div
-      $("#to-dos").append(toDoItem);
+          // Append the button to the to do item
+          toDoItem = toDoItem.prepend(toDoClose);
 
-      // Clear the textbox when done
-      $("#to-do").val("");
+          // Add the button and to do item to the to-dos div
+          $("#to-dos").append(toDoItem);
 
-      // Add to the toDoCount
-      toDoCount++;
-    });
+          // Clear the textbox when done
+          $("#to-do").val("");
 
-    // When a user clicks a check box then delete the specific content
-    $(document.body).on("click", ".checkbox", function () {
+          // Add to the toDoCount
+          toDoCount++;
+        });
 
-      // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
-      var toDoNumber = $(this).attr("data-to-do");
+        $(document.body).on("click", ".checkbox", function () {
+          // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
+          var toDoNumber = $(this).attr("data-to-do");
+          // Select and Remove the specific <p> element that previously held the to do item number.
+          $("#item-" + toDoNumber).remove();
+        });
 
-      // Select and Remove the specific <p> element that previously held the to do item number.
-      $("#item-" + toDoNumber).remove();
-    });
+        // --------------------------------
 
-  </script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+          var calendarEl = document.getElementById('calendar');
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'listDay,listWeek'
+            },
+
+            // customize the button names,
+            // otherwise they'd all just say "list"
+            views: {
+              listDay: { buttonText: 'list day' },
+              listWeek: { buttonText: 'list week' }
+            },
+
+            defaultView: 'listDay',
+            defaultDate: '2019-02-02', //THIS IS WHERE WE CAN INSERT THE VARIABL OF OUR START DURATION
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+              {
+                groupId: 999,
+                title: 'Lunch',
+                start: '2019-02-02T12:00:00',
+                end: '2019-01-12T13:30:00'
+              },
+              {
+                title: 'Happy-Hour',
+                start: '2019-02-02T14:00:00',
+                end: '2019-01-12T15:00:00'
+              },
+              {
+                title: 'Field Museum',
+                start: '2019-02-02T15:30:00',
+                end: '2019-01-12T18:00:00'
+              },
+              {
+                title: 'Walk Back to Hotel',
+                start: '2019-02-02T18:15:00',
+                end: '2019-01-12T18:30:00'
+              },
+              {
+                title: 'Dinner',
+                start: '2019-02-02T19:00:00',
+                end: '2019-01-12T21:00:00'
+              }
+            ]
+
+          });
+
+          $(function () {
+
+            $('#calendar').fullCalendar({
+              defaultView: 'month',
+
+              header: {
+                center: 'addEventButton'
+              },
+
+              customButtons: {
+                addEventButton: {
+                  text: 'add event...',
+                  click: function () {
+                    var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                    var date = moment(dateStr);
+
+                    if (date.isValid()) {
+                      $('#calendar').fullCalendar('renderEvent', {
+                        title: 'dynamic event',
+                        start: date,
+                        allDay: true
+                      });
+                      alert('Great. Now, update your database...');
+                    } else {
+                      alert('Invalid date.');
+                    }
+                  }
+                }
+              }
+            });
+
+          });
+          calendar.render();
+        });
+
+      </script>
+
+      <style>
+        #calendar {
+          max-width: 900px;
+          width: 450px;
+          margin: 0 auto;
+          background-color: lightgray;
+        }
+      </style>
+
+
+    </div>
 
 </body>
 

@@ -10,90 +10,103 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ&libraries=places&callback=initMap" async defer></script>
-    <script src = "../Assets/JAVA/Map.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ&libraries=places&callback=initMap"
+        async defer></script>
+    <script src="../Assets/JAVA/Map.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="../Assets/CSS/Home.css">
     <title>Google Map Pin Function</title>
 
 </head>
 
-<header>
-    <h1>The Overplanner Planning Planner for Overplanners</h1>
-</header>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="Home.html">
+            <img src="../Assets/Images/logo.PNG" style="display: inline-block;">
+            <span style="display: inline-block;">Overplanner</span>
+        </a>
 
-<body>
-    <header>
-        <h1>App Title Goes Here</h1>
-    </header>
-    <div class = "container">
-        <div class = "row">
-            <form class = col-4 id="user-input">
+        </a>
 
-                <label for="trip-distance">Trip Distance</label><br>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="Home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ActivitySchedulerScreen.html">Add An Activity</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <form class=col-4 id="user-input">
+                <label for="user-name">Name</label>
+                <input type="text" id="user-name"><br>
+
+
+                <label for="trip-distance">Trip Distance</label>
                 <input type="text" id="trip-distance"><br>
 
-                <label for="activity">Activity</label><br>
+                <label for="activity">Activity</label>
                 <input type="text" id="activity"><br>
 
-                <label for="starting-point">Starting Location</label><br>
+                <label for="starting-point">Starting Location</label>
                 <input type="text" id="starting-point"><br>
 
-                <label for="budget">Budget</label><br>
+                <label for="budget">Budget</label>
                 <input type="text" id="budget"><br>
-<!-- 
-                <label for="visit-departure">Departure Date</label><br>
-                <input type="date" id="departure"><br><br> -->
 
-                <input type="submit" id="get-started" value="Start Planning!">
+                <label for="visit-arrival">Arrival Date</label>
+                <input type="date" id="arrival"><br>
+
+                <label for="visit-departure">Departure Date</label>
+                <input type="date" id="departure"><br><br>
+
+                <button class="btn btn-sm btn-primary btn-block" id="get-started">Get Started!</button><br>
             </form>
-            <div class = "col-8" id = "places-choice">
-                        <button class = "btn btn-primary" id = "route-button">Route!</button>
-                <div id ="directions-button">  
-                    <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#directionsCollapse" aria-expanded="false" aria-controls="directionsCollapse"> See Directions </button>
+
+            <br>
+            <br>
+
+            <div class="col-8" id="places-choice">
+                <button class="btn btn-sm btn-primary btn-block" id="route-button">Route!</button><br>
+                <div id="directions-button">
+                    <p><button class="btn btn-sm btn-primary btn-block" type="button" data-toggle="collapse"
+                            data-target="#directionsCollapse" aria-expanded="false" aria-controls="directionsCollapse">
+                            See Directions </button>
                     </p>
-                    <div  class="collapse" id="directionsCollapse">
-                        <div id = "directions-panel" class="card card-body">
+                    <div class="collapse" id="directionsCollapse">
+                        <div id="directions-panel" class="card card-body">
                         </div>
                     </div>
                 </div>
-                <div id ="save-collapse">  
-                        <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#saveCollapse" aria-expanded="false" aria-controls="saveCollapse"> Save this route </button>
-                        </p>
-                        <div  class="collapse" id="saveCollapse">
-                            <div id = "save-panel" class="card card-body">
-                                <label for="user-name">Name</label><br>
-                                <input type="text" id="user-name"><br>
-                                                
-                                <label for="date">Arrival Date</label><br>
-                                <input type="date" id="date"><br>
-
-                                <input type="submit" id="save-button" value="save">
-                            </div>
-                        </div>
-                </div>
-                <div id = save-area> </div>
-                    <h1 id ="miles-left"></h1>
-                    <h1 id ="expected-cost"></h1>
-                    <h1 id ="travel-time"></h1>
+                <h1 id="miles-left"></h1>
+                <h1 id="expected-cost"></h1>
+                <h1 id="travel-time"></h1>
             </div>
-            
-            
-    </div>
-    </div>
-    <div class = "container">
-        <div id = "places-choices">
         </div>
-       
+    </div>
+    <div class="container">
+        <div id="places-choices">
+        </div>
+
     </div>
     <div class="container">
         <div id=map>
-            <div class="ez_button">
-                <button><a href="Input.html">Continue as guest</a></button>
-            </div>
-
 
         </div>
     </div>
