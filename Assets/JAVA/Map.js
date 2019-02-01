@@ -32,7 +32,7 @@ $(document).on("click", "#get-started", function(event){
     searchQuery =  $("#activity").val().trim();
     milesWillingToTravel = parseInt( $("#trip-distance").val().trim());
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
-    $("#miles-left").text("Miles Left:" + milesWillingToTravel);
+    $("#miles-left").text("Miles Left: " + milesWillingToTravel);
     startUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + startLocation + "&inputtype=textquery&fields=geometry&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ"
     $.ajax({
         url :"https://cors-anywhere.herokuapp.com/" + startUrl,
@@ -221,12 +221,12 @@ function updateDistance (){
    console.log(resultsDistance.rows["0"].elements[markerNum].distance.text);
    console.log(milesWillingToTravel)
    console.log(miles);
-   var newMiles = (milesWillingToTravel-miles);
+   var newMiles = Math.floor(milesWillingToTravel-miles);
    milesWillingToTravel = newMiles;
    if(newMiles < 0)
    {
        milesWillingToTravel = 0;
    }
     console.log(milesWillingToTravel);
-   $("#miles-left").text(milesWillingToTravel);
+   $("#miles-left").text("Miles Left: " + milesWillingToTravel);
 };
