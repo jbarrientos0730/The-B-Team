@@ -15,6 +15,7 @@ var database = firebase.database();
 var name = "";
 var startLocation = "";
 var budget = 0;
+var stayDuration = 0;
 var startDate = "";
 var departureDate = "";
 var travelDistance = 0;
@@ -27,6 +28,7 @@ $(document).on("click", "#get-started", function(event){
     startLocation = $("#starting-point").val().trim();
     travelDistance = $("#travel-distance").val().trim();
     budget = $("#budget").val().trim();
+    stayDuration = $("#stayDuration").val().trim();
     startDate = moment($("#arrival").val().trim(), "MM/DD/YYYY").format("X");
     departureDate = moment($("#departure").val().trim(), "MM/DD/YYYY").format("X");
 
@@ -35,6 +37,7 @@ $(document).on("click", "#get-started", function(event){
     console.log(startLocation)
     console.log(travelDistance)
     console.log(budget)
+    console.log(stayDuration)
     console.log(startDate)
     console.log(departureDate)
  
@@ -44,6 +47,7 @@ $(document).on("click", "#get-started", function(event){
         startLocation = snapshot.val().startLocation;
         travelDistance = snapshot.val().travelDistance;
         budget = snapshot.val().budget;
+        stayDuration = snapshot.val().stayDuration
         startDate = snapshot.val().startDate;
         departureDate = snapshot.val().departureDate;
 
@@ -54,6 +58,7 @@ $(document).on("click", "#get-started", function(event){
         startLocation: startLocation,
         travelDistance:travelDistance,
         budget: budget,
+        stayDuration: stayDuration,
         startDate: startDate,
         departureDate: departureDate
 
