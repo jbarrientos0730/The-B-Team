@@ -24,108 +24,100 @@
 
 </head>
 
-    <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="Home.html">
-            <img src="../Assets/Images/logo.PNG" style="display: inline-block;">
-            <span style="display: inline-block;">Overplanner</span>
-        </a>
+<!-- Bootstrap navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="Home.html">
+        <img src="../Assets/Images/logo.PNG" style="display: inline-block;">
+        <span style="display: inline-block;">Overplanner</span>
+    </a>
 
-        </a>
+    </a>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="Home.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="ActivitySchedulerScreen.html">Add An Activity</a>
-                </li>
-            </ul>
-        </div>
-     
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ActivitySchedulerScreen.html">Add An Activity</a>
+            </li>
+        </ul>
+    </div>
 
-
-    <div class="container">
-        <div class="row">
-            <form class=col-4 id="user-input">
-                <label for="user-name">Name</label>
-                <input type="text" id="user-name"><br>
+</nav>
 
 
-                <label for="trip-distance">Trip Distance</label>
-                <input type="text" id="trip-distance"><br>
+<div class="container">
+    <div class="row">
+        <form class=col-4 id="user-input">
+            <label for="user-name">Name</label>
+            <input type="text" id="user-name"><br>
 
-                <label for="activity">Activity</label>
-                <input type="text" id="activity"><br>
 
-                <label for="starting-point">Starting Location</label>
-                <input type="text" id="starting-point"><br>
+            <label for="trip-distance">Trip Distance</label>
+            <input type="text" id="trip-distance"><br>
 
-                <label for="budget">Budget</label>
-                <input type="text" id="budget"><br>
+            <label for="activity">Activity</label>
+            <input type="text" id="activity"><br>
 
-                <label for="visit-arrival">Arrival Date</label>
-                <input type="date" id="arrival"><br>
+            <label for="starting-point">Starting Location</label>
+            <input type="text" id="starting-point"><br><br>
 
-                <label for="visit-departure">Departure Date</label>
-                <input type="date" id="departure"><br><br>
+            <button class="btn btn-primary btn-block" id="get-started">Get Started!</button><br>
+        </form>
 
-                <button class="btn btn-sm btn-primary btn-block" id="get-started">Get Started!</button><br>
-            </form>
+        <br>
+        <br>
 
-            <br>
-            <br>
-
-            <div class="col-8" id="places-choice">
-                <button class="btn btn-sm btn-primary btn-block" id="route-button">Route!</button><br>
-                <div id="directions-button">
-                    <p><button class="btn btn-sm btn-primary btn-block" type="button" data-toggle="collapse"
-                            data-target="#directionsCollapse" aria-expanded="false" aria-controls="directionsCollapse">
-                            See Directions </button>
-                    </p>
-                    <div class="collapse" id="directionsCollapse">
-                        <div id="directions-panel" class="card card-body">
-                        </div>
+        <div class="col-8" id="places-choice">
+            <button class="btn btn-primary btn-block" id="route-button">Route!</button><br>
+            <div id="directions-button">
+                <p><button class="btn btn-primary btn-block type=" button" data-toggle="collapse" data-target="#directionsCollapse"
+                        aria-expanded="false" aria-controls="directionsCollapse">
+                        See Directions </button>
+                </p>
+                <div class="collapse" id="directionsCollapse">
+                    <div id="directions-panel" class="card card-body">
                     </div>
                 </div>
-                <div id ="save-collapse">  
-                        <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#saveCollapse" aria-expanded="false" aria-controls="saveCollapse"> Save this route </button>
-                        </p>
-                        <div  class="collapse" id="saveCollapse">
-                            <div id = "save-panel" class="card card-body">
-                                <label for="trip-name">Name</label><br>
-                                <input type="text" id="trip-name"><br>
-                                                
-                                <label for="date">Arrival Date</label><br>
-                                <input type="date" id="date"><br>
-        
-                                <input type="submit" id="save-button" value="save">
-                            </div>
-                            <div id = save-area> </div>
-                        </div>
-                </div>
-                <h1 id="miles-left"></h1>
-                <h1 id="expected-cost"></h1>
-                <h1 id="travel-time"></h1>
             </div>
+            <div id="save-collapse">
+                <p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#saveCollapse"
+                        aria-expanded="false" aria-controls="saveCollapse"> Save this route </button>
+                </p>
+                <div class="collapse" id="saveCollapse">
+                    <div id="save-panel" class="card card-body">
+                        <label for="trip-name">Name</label><br>
+                        <input type="text" id="trip-name"><br>
+
+                        <label for="date">Arrival Date</label><br>
+                        <input type="date" id="date"><br>
+
+                        <input type="submit" id="save-button" value="save">
+                    </div>
+                    <div id=save-area> </div>
+                </div>
+            </div>
+            <h1 id="miles-left"></h1>
+            <h1 id="expected-cost"></h1>
+            <h1 id="travel-time"></h1>
         </div>
     </div>
-    <div class="container">
-        <div id="places-choices">
-        </div>
+</div>
+<div class="container">
+    <div id="places-choices">
+    </div>
+</div>
+
+<div class="container">
+    <div id=map>
 
     </div>
-    <div class="container">
-        <div id=map>
-
-        </div>
-    </div>
+</div>
 </body>
 
 </html>

@@ -8,7 +8,6 @@ var startlng;
 var name = "";
 var date = "";
 var startLocation = "";
-var budget = "";
 var searchQuery = "bestplaces";
 var milesWillingToTravel = 10;
 var radius = 3000;
@@ -45,7 +44,6 @@ $(document).on("click", "#get-started", function(event){
     event.preventDefault();
     name = $("#user-name").val().trim();
     startLocation = $("#starting-point").val().trim();
-    budget = $("#budget").val().trim();
     searchQuery =  $("#activity").val().trim();
     milesWillingToTravel = parseInt( $("#trip-distance").val().trim());
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
@@ -170,8 +168,8 @@ function addItineraryChoice(num){
             zIndex: 2
         })
         $("#places-choices").empty();
-        var btn = $("<button class= 'button-marker m-2 btn btn-primary' id = marker-number-" + i  + " value =" + i + ">");
-        btn.append("<p> Name: " + results[num].name + "</p>");
+        var btn = $("<button class= 'col-2 button-marker m-2 btn btn-sm btn-primary' id = marker-number-" + i  + " value =" + i + ">");
+        btn.append("<p class='font-weight-bold'> Name: " + results[num].name + "</p>");
         btn.append("<p> Rating: " + results[num].rating + "</p>");
         btn.append("<p>  Price level: " + results[num].price_level + "</p>");
         totalTravelTime +=  Math.floor(resultsDistance.rows[0].elements[num].duration.value/60);
@@ -210,12 +208,12 @@ function addItineraryChoice(num){
  }
 
  function addButtonChoices(response, distResponse){   
-     for (i = 0; i < response.length; i++)
+     for (i = 0; i < 10; i++)
      {
        
          //diplay name, hours, rating, price, distance from
-        var btn = $("<button class= 'col-2 button-marker m-2 btn-primary' id = marker-number-" + i  + " value =" + i + ">");
-        btn.append("<p> Name: " + response[i].name + "</p>");
+        var btn = $("<button class= 'col-2 button-marker m-2 btn btn-sm btn-primary' id = marker-number-" + i  + " value =" + i + ">");
+        btn.append("<p class='font-weight-bold'> Name: " + response[i].name + "</p>");
         btn.append("<p> Rating: " + response[i].rating + "</p>");
         btn.append("<p>  Price level: " + response[i].price_level + "</p>");
         btn.append("<p>  Distance from last point: " + distResponse.rows[0].elements[i].distance.text + "</p>");
