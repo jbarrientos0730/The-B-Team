@@ -41,7 +41,6 @@ var database;
 
   database = firebase.database();
 
-
 $(document).on("click", "#get-started", function(event){
     event.preventDefault();
     name = $("#user-name").val().trim();
@@ -79,9 +78,9 @@ $(document).on('click', ".button-marker", function(event){
     event.preventDefault();
     markerNum = parseInt($(this).val());
     addItineraryChoice(markerNum);
+    updateDistance(markerNum);
     markerNum += 1;
     console.log(markerNum);
-    updateDistance(markerNum);
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
     console.log(radius);
    
@@ -140,7 +139,6 @@ function addSavedTrips(){
     }
     }
 }
-
 function initMap(){   
      map = new google.maps.Map(document.getElementById("map"), {
          center: {lat: 41.844334, lng: -87.645301}, //center the map based on the start location of the form
