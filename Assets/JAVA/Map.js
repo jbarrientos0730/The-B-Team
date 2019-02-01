@@ -215,13 +215,19 @@ function getRoutes(){
     });
 }
 function updateDistance (){
+
+    function round(value, precision) {
+        var multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+    }
+
    var miles =  resultsDistance.rows["0"].elements[markerNum].distance.text;
    miles = miles.substring(0, 3);
    parseInt(miles); 
    console.log(resultsDistance.rows["0"].elements[markerNum].distance.text);
    console.log(milesWillingToTravel)
    console.log(miles);
-   var newMiles = Math.floor(milesWillingToTravel-miles);
+   var newMiles = round(milesWillingToTravel-miles, 2);
    milesWillingToTravel = newMiles;
    if(newMiles < 0)
    {
