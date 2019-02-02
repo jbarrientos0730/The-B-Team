@@ -17,7 +17,7 @@ As Nancy Sinatra said:
 > One of these days these boots are gonna walk all over you.
 
 ## How users can get started with the project
-    Users can create an account on the Login page. From there, they can proceed to the Home screen and plan out a route in a new neighborhood or city using the input form + route buttons. 
+Users can create an account on the Login page. From there, they can proceed to the Home screen and plan out a route in a new neighborhood or city using the input form + route buttons. 
 
 ## Project contributors
 * Shelby Marks (Project Lead / Quality Assurance)
