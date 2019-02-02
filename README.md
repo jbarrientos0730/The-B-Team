@@ -1,6 +1,6 @@
 # The-B-Team
 
-![alt text](https://files.slack.com/files-pri/TDW0K65GT-FFTCZNK5X/logo.png)
+![Overplanner Logo](https://github.com/jbarrientos0730/The-B-Team/blob/master/Assets/IMAGES/logo.PNG)
 
 ## What our app does
 We wanted to create a walking route oriented schedule generator that shows activity/restaurant recommendations based on distance you'd like to walk conveniently. Users will input their start point, their name, the duration of their trip and how far they are willing to walk per duration. 
@@ -12,9 +12,8 @@ Users will be able to route for their activities that accounts for walking and m
 
 As Nancy Sinatra said:
 
-> These boots are made for walking 
-> And that's just what they'll do 
-> One of these days these boots are gonna walk all over you.
+> These boots are made for walking,
+> and that's just what they'll do.
 
 ## How users can get started with the project
 Users can create an account on the Login page. From there, they can proceed to the Home screen and plan out a route in a new neighborhood or city using the input form + route buttons. 
