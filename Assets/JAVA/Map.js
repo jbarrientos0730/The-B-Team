@@ -75,8 +75,8 @@ $(document).on("click", "#get-started", function(event){
 $(document).on('click', ".button-marker", function(event){
     event.preventDefault();
     markerNum = parseInt($(this).val());
+    updateDistance();
     addItineraryChoice(markerNum);
-    updateDistance(markerNum);
     markerNum += 1;
     console.log(markerNum);
     // radius = Math.ceil(milesWillingToTravel * 1609.344);
@@ -156,11 +156,17 @@ function initMap(){
     }    
     console.log(markers);
  };
-function addItineraryChoice(num){
-    
-    
+function addItineraryChoice(num){  
         markerSelection.push(markers[num]);
         activitySelection.push(results[num]);
+        console.log(activitySelection[currentActivity]);
+        startlat = activitySelection[currentActivity].geometry.location.lat;
+        console.log(startlat);
+        startlng = activitySelection[currentActivity].geometry.location.lng;
+        console.log(startlng);
+        url = "https://cors-anywhere.herokuapp.com/" + "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword="+ searchQuery + "&location=" + startlat + "," + startlng + "&radius=" + radius + "&opennow&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ";
+        console.log(url);
+        
         selectMarker = new google.maps.Marker({
             position: markers[num].getPosition(),
             icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
@@ -168,13 +174,19 @@ function addItineraryChoice(num){
             zIndex: 2
         })
         $("#places-choices").empty();
+        var price =  results[num].price_level;
+        if (price === undefined)
+        {
+            price = 0;
+        }
+        console.log(results[num]);
         var btn = $("<button class= 'col-2 button-marker m-2 btn btn-sm btn-primary' id = marker-number-" + i  + " value =" + i + ">");
         btn.append("<p class='font-weight-bold'> Name: " + results[num].name + "</p>");
         btn.append("<p> Rating: " + results[num].rating + "</p>");
-        btn.append("<p>  Price level: " + results[num].price_level + "</p>");
+        btn.append("<p>  Price level: " + price + "</p>");
         totalTravelTime +=  Math.floor(resultsDistance.rows[0].elements[num].duration.value/60);
         $("#travel-time").text("Total Walking Time: " + totalTravelTime + " minutes");
-        expectedCost += (results[num].price_level * 20);
+        expectedCost += (price * 20);
         $("#expected-cost").text("Expected Cost: $ " + expectedCost); 
         console.log(expectedCost)
         $("#places-choice").append(btn);
@@ -182,40 +194,42 @@ function addItineraryChoice(num){
         {
             markers[i].setMap(null);
         };
-
-        console.log(activitySelection[currentActivity]);
-        startlat = activitySelection[currentActivity].geometry.location.lat;
-        console.log(startlat);
-        startlng = activitySelection[currentActivity].geometry.location.lng;
-        console.log(startlng);
         $("#miles-left").text(milesWillingToTravel);
         if (milesWillingToTravel > 0)
         {
         $.ajax({
-            url:"https://cors-anywhere.herokuapp.com/" + "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword="+ searchQuery + "&location=" + startlat + "," + startlng + "&radius=" + radius + "&opennow&key=AIzaSyD0vzQtyAJtm_QdkUJ3g7qFuT3b7ipB8UQ",
+            url: url,
             method: "GET",
         }).then(function(response){
             results = response.results;
-           
+            startLatLng = activitySelection[currentActivity].geometry.location;
             addMarker(results);
             getDistanceBetween(results);
             currentActivity++;
 
         })
         console.log(currentActivity);
-    }
+        }
+        else if (milesWillingToTravel <=0)
+        {
+            $("#places-choices").empty();
+        }
          
  }
 
  function addButtonChoices(response, distResponse){   
      for (i = 0; i < 10; i++)
      {
-       
+        var price =  response[i].price_level;
+        if (price === undefined)
+        {
+            price = 0;
+        }
          //diplay name, hours, rating, price, distance from
         var btn = $("<button class= 'col-2 button-marker m-2 btn btn-sm btn-primary' id = marker-number-" + i  + " value =" + i + ">");
         btn.append("<p class='font-weight-bold'> Name: " + response[i].name + "</p>");
         btn.append("<p> Rating: " + response[i].rating + "</p>");
-        btn.append("<p>  Price level: " + response[i].price_level + "</p>");
+        btn.append("<p>  Price level: " + price + "</p>");
         btn.append("<p>  Distance from last point: " + distResponse.rows[0].elements[i].distance.text + "</p>");
         btn.append("<p>  Walking Time: " + distResponse.rows[0].elements[i].duration.text + "</p>");
         $("#places-choices").append(btn);
@@ -279,24 +293,21 @@ function getRoutes(Arr){
 }
 function updateDistance (){
 
-    function round(value, precision) {
-        var multiplier = Math.pow(10, precision || 0);
-        return Math.round(value * multiplier) / multiplier;
-    }
-
    var miles =  resultsDistance.rows["0"].elements[markerNum].distance.text;
    miles = miles.substring(0, 3);
    parseInt(miles); 
    console.log(resultsDistance.rows["0"].elements[markerNum].distance.text);
    console.log(milesWillingToTravel)
    console.log(miles);
-   var newMiles = round(milesWillingToTravel-miles, 2);
-   milesWillingToTravel = newMiles;
-   if(newMiles < 0)
+
+   if(miles < 0 || miles === NaN)
    {
        milesWillingToTravel = 0;
    }
     console.log(milesWillingToTravel);
-   $("#miles-left").text("Miles Left: " + milesWillingToTravel);
+    milesWillingToTravel -= miles;
+    milesDisplay = toString(milesWillingToTravel);
+    milesDisplay = milesDisplay.substring(0, 2);
+   $("#miles-left").text("Miles Left: " + milesDisplay);
 };
 addSavedTrips();
